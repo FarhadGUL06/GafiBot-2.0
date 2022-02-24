@@ -8,4 +8,4 @@
 6. Proiectul a fost impartit pe fisiere si codul a fost organizat mai bine (nu vedeti voi dar nu conteaza)
 7. Meme uri cu Amogos -> amogos sau mogos - un meme random sau amogos nr, al nr-lea meme cu mogos
 8. Comanda de sters mesaje scoasa (eliminam cenzura)
-9. Nu se mai face coliziune intre momentul inregistrarii si muzica curenta (nu mai sunt probleme
+9. Nu se mai face coliziune intre momentul inregistrarii si muzica curenta (nu mai sunt probleme)
