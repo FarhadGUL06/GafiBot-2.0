@@ -384,7 +384,6 @@ function stop(message, serverQueue) {
     serverQueue.songs = [];
     serverQueue.playing = false;
     serverQueue.connection.dispatcher.end();
-    serverQueue.voiceChannel.leave();
 }
 
 module.exports = { start, skip, loop, loop_queue, pause, resume, seek, ytsearch, print_queue, stop }
