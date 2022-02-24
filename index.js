@@ -32,6 +32,7 @@ const { VoiceChannel } = require('discord.js');
 const queue = objects.queue;
 
 client.once('ready', () => {
+    client.user.setActivity('on 324CC')
     console.log('Ready!');
 });
 client.once('reconnecting', () => {
