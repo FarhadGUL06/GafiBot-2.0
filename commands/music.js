@@ -195,6 +195,18 @@ function add_playlist(message, serverQueue, playlist, videosObj) {
 
 async function playlist(message, serverQueue) {
     const args = message.content.split(" ");
+    const voiceChannel = message.member.voice.channel;
+    if (!voiceChannel) return message.channel.send("Trebuie sa fii conectat pe un channel de voice.");
+    if (client.voice.connections.size > 0) {
+        const inSameChannel = client.voice.connections.some((connection) => connection.channel.id === message.member.voice.channelID)
+        if (!inSameChannel) return message.channel.send('Botul este utilizat pe alt canal de voice.')
+
+    }
+    const permissions = voiceChannel.permissionsFor(message.client.user);
+    if (!permissions.has("CONNECT") || !permissions.has("SPEAK")) {
+        return message.channel.send("Nu am permisiune sa intru pe canalul de voice.");
+    }
+
     try {
         const playlist = await youtube.getPlaylist(args[1]); // get playlist data 
         let videosObj = await playlist.fetch(); // songs data object
