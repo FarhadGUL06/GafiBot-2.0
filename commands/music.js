@@ -3,6 +3,7 @@ const client = objects.client;
 const queue = objects.queue;
 
 const ytdl = require(`ytdl-core`);
+const ytdl2 = require('youtube-dl-exec').raw
 const yts = require(`yt-search`);
 const youtube = require('youtube-sr').default;
 const { getData, getPreview, getTracks } = require('spotify-url-info');
@@ -66,6 +67,28 @@ function play(guild, song) {
             serverQueue.playing = true;
         })
         .on("error", error => console.error(error));
+    // const stream_music = ytdl2 (song.url, {
+    //     o: '-',
+    //     q: '',
+    //     f: 'bestaudio[ext=webm+acodec=opus+asr=48000]/bestaudio',
+    //     r: '100K',
+    // }, { stdio: ['ignore', 'pipe', 'ignore'] })
+
+    // const dispatcher = serverQueue.connection
+    //     .play(stream_music)
+    //     .on("finish", () => {
+    //         if (loop_ind === 0) {
+    //             !
+    //                 serverQueue.songs.shift();
+    //         }
+    //         if (loop_queue_ind === 1) {
+    //             serverQueue.songs.push(song);
+    //         }
+    //         play(guild, serverQueue.songs[0]);
+    //         serverQueue.playing = true;
+    //     })
+    //     .on("error", error => console.error(error));
+
     dispatcher.setVolumeLogarithmic(serverQueue.volume / 5);
     serverQueue.textChannel.send(`Piesa curenta: **${song.title}**`);
 }
@@ -120,7 +143,6 @@ async function execute(message, serverQueue) {
                     title: videos[0].title,
                     url: videos[0].url,
                 };
-                message.channel.send("TITLU: " + song.title);
             }
         } catch (error) {
             console.error(error);
@@ -211,7 +233,7 @@ async function playlist(message, serverQueue) {
         const playlist = await youtube.getPlaylist(args[1]); // get playlist data 
         let videosObj = await playlist.fetch(); // songs data object
         videosObj = videosObj.videos;
-        message.content = "play " + videosObj[0].title;
+        message.content = "play " + videosObj[0].url;
         execute(message, serverQueue);
         message.channel.send("Playlist-ul a fost adaugat in coada.");
         setTimeout(add_playlist, 2000, message, serverQueue, playlist, videosObj);
@@ -326,7 +348,7 @@ async function seek(message, serverQueue) {
     const songa = stream;
     current_seek = 1;
     const dispatcher = serverQueue.connection
-        .play(songa, { filter: 'audioonly',quality: 'lowestaudio', seek: parseInt(time) })
+        .play(songa, { filter: 'audioonly', quality: 'lowestaudio', seek: parseInt(time) })
         .on("finish", () => {
             current_seek = 0;
             if (loop_ind === 0) {
