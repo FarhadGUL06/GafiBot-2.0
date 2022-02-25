@@ -3,7 +3,6 @@ const client = objects.client;
 const queue = objects.queue;
 
 const ytdl = require(`ytdl-core`);
-const ytdl2 = require('youtube-dl-exec').raw
 const yts = require(`yt-search`);
 const youtube = require('youtube-sr').default;
 const { getData, getPreview, getTracks } = require('spotify-url-info');
@@ -67,28 +66,6 @@ function play(guild, song) {
             serverQueue.playing = true;
         })
         .on("error", error => console.error(error));
-    // const stream_music = ytdl2 (song.url, {
-    //     o: '-',
-    //     q: '',
-    //     f: 'bestaudio[ext=webm+acodec=opus+asr=48000]/bestaudio',
-    //     r: '100K',
-    // }, { stdio: ['ignore', 'pipe', 'ignore'] })
-
-    // const dispatcher = serverQueue.connection
-    //     .play(stream_music)
-    //     .on("finish", () => {
-    //         if (loop_ind === 0) {
-    //             !
-    //                 serverQueue.songs.shift();
-    //         }
-    //         if (loop_queue_ind === 1) {
-    //             serverQueue.songs.push(song);
-    //         }
-    //         play(guild, serverQueue.songs[0]);
-    //         serverQueue.playing = true;
-    //     })
-    //     .on("error", error => console.error(error));
-
     dispatcher.setVolumeLogarithmic(serverQueue.volume / 5);
     serverQueue.textChannel.send(`Piesa curenta: **${song.title}**`);
 }
@@ -127,13 +104,6 @@ async function execute(message, serverQueue) {
                 song.title = info.videoDetails.title;
                 song.url = song_split;
             });
-
-            /*
-            song = {
-                title: songInfo.videoDetails.title,
-                url: songInfo.video_url,
-            };
-            */
             let verif = song.url;
             if (!verif) {
                 message.channel.send("FDGHREH " + song.title);
