@@ -219,6 +219,7 @@ function skip(message, serverQueue) {
         serverQueue.songs.shift();
     }
     loop_ind = 0;
+    current_seek = 0;
     serverQueue.connection.dispatcher.end();
     if (!serverQueue.songs.length) {
         serverQueue.voiceChannel.leave();
@@ -383,6 +384,7 @@ function stop(message, serverQueue) {
         return message.channel.send("Nu e nimic de stopat.");
     serverQueue.songs = [];
     serverQueue.playing = false;
+    current_seek = 0;
     serverQueue.connection.dispatcher.end();
 }
 
