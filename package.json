@@ -1,7 +1,7 @@
 {
   "name": "GafiBot",
-  "version": "v2.0",
-  "repository": "https://github.com/FarhadGUL06/GafiBot-2.0",
+  "version": "1.0.0",
+  "repository": "https://github.com/FarhadGUL06/discordbot/",
   "description": "Botul lui GAFI",
   "main": "index.js",
   "scripts": {
@@ -19,6 +19,7 @@
   "dependencies": {
     "@discordjs/opus": "^0.6.0",
     "discord-player": "^5.1.0",
+    "discord-ytdl-core": "^5.0.4",
     "discord.js": "^12.5.3",
     "eslint": "^7.32.0",
     "ffmpeg": "^0.0.4",
@@ -27,7 +28,8 @@
     "opus": "^0.0.0",
     "opusscript": "^0.0.8",
     "spotify-url-info": "^2.2.3",
-    "yt-search": "^2.10.1",
+    "youtube-dl-exec": "^2.0.6",
+    "yt-search": "^2.10.3",
     "ytdl-core": "^4.11.0"
   },
   "devDependencies": {
