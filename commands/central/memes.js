@@ -120,4 +120,4 @@ async function odo(message) {
   return;
 }
 
-module.exports = { mogos, odo }
+module.exports = { mogos, rd, odo }
