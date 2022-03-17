@@ -169,6 +169,10 @@ client.on('message', async message => {
             memes.odo(message);
             return;
         }
+        if (message.content.includes("rd")) {
+            memes.rd(message);
+            return;
+        }
         message.channel.send("Comanda nu este implementata!");
         return;
     }
