@@ -173,6 +173,10 @@ client.on('message', async message => {
             memes.rd(message);
             return;
         }
+        if (message.content.includes("olaru")) {
+            memes.olaru(message);
+            return;
+        }
         message.channel.send("Comanda nu este implementata!");
         return;
     }
