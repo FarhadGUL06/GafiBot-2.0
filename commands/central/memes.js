@@ -23,6 +23,39 @@ function mogos(message) {
   return;
 }
 
+async function olaru(message) {
+  const args = message.content.split(" ");
+  if (!args[1]) {
+    return message.channel.send("Comenzi disponibile pentru Olaru: ciuruit");
+  }
+  if ((args[1].includes("ciuruit"))||(args[1].includes(""))) {
+    const voicechannel = message.member.voice.channel;
+    if (!voicechannel) return message.channel.send("Nu esti pe un canal de voice.");
+    if (client.voice.connections.size > 0) {
+      return message.channel.send("Sunt ocupat acum sa cant!");
+    }
+
+    let fileName = "ciuruit"; // Numele fisierului urmat sa se deschida
+
+    if (!fs.existsSync(`./src/olaru/${fileName}.pcm`)) return message.channel.send("Nu a fost gasita sursa.");
+
+    const connection = await message.member.voice.channel.join();
+    const stream = fs.createReadStream(`./src/olaru/${fileName}.pcm`);
+
+    const dispatcher = connection.play(stream, {
+      type: "converted"
+    });
+    dispatcher.setVolumeLogarithmic(10);
+    dispatcher.on("finish", () => {
+      message.member.voice.channel.leave();
+      return;
+    })
+    return;
+  }
+  message.channel.send("Comenzi disponibile pentru Olaru: ciuruit");
+  return;
+}
+
 async function rd(message) {
   const args = message.content.split(" ");
   if (!args[1]) {
@@ -120,4 +153,4 @@ async function odo(message) {
   return;
 }
 
-module.exports = { mogos, rd, odo }
+module.exports = { mogos, rd, odo, olaru }
