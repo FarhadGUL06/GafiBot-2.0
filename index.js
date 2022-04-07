@@ -177,6 +177,10 @@ client.on('message', async message => {
             memes.olaru(message);
             return;
         }
+        if (message.content.includes("saracin")||message.content.includes("ms")||message.content.includes("multumesc")) {
+            memes.saracin(message);
+            return;
+        }
         message.channel.send("Comanda nu este implementata!");
         return;
     }
