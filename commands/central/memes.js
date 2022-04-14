@@ -86,7 +86,55 @@ async function saracin(message) {
     })
     return;
   }
-  message.channel.send("Comenzi disponibile pentru Saracin: multumesc / ms");
+  if ((args[1].includes("pace"))||(args[0].includes(`${prefix}pace`))||(args[0].includes(`${prefix}pace`))||(args[1].includes("pace"))) {
+    const voicechannel = message.member.voice.channel;
+    if (!voicechannel) return message.channel.send("Nu esti pe un canal de voice.");
+    if (client.voice.connections.size > 0) {
+      return message.channel.send("Sunt ocupat acum sa cant!");
+    }
+
+    let fileName = "pace"; // Numele fisierului urmat sa se deschida
+
+    if (!fs.existsSync(`./src/saracin/${fileName}.pcm`)) return message.channel.send("Nu a fost gasita sursa.");
+
+    const connection = await message.member.voice.channel.join();
+    const stream = fs.createReadStream(`./src/saracin/${fileName}.pcm`);
+
+    const dispatcher = connection.play(stream, {
+      type: "converted"
+    });
+    dispatcher.setVolumeLogarithmic(10);
+    dispatcher.on("finish", () => {
+      message.member.voice.channel.leave();
+      return;
+    })
+    return;
+  }
+  if ((args[1].includes("hello"))||(args[0].includes(`${prefix}hello`))||(args[0].includes(`${prefix}hello`))||(args[1].includes("hello"))) {
+    const voicechannel = message.member.voice.channel;
+    if (!voicechannel) return message.channel.send("Nu esti pe un canal de voice.");
+    if (client.voice.connections.size > 0) {
+      return message.channel.send("Sunt ocupat acum sa cant!");
+    }
+
+    let fileName = "hello"; // Numele fisierului urmat sa se deschida
+
+    if (!fs.existsSync(`./src/saracin/${fileName}.pcm`)) return message.channel.send("Nu a fost gasita sursa.");
+
+    const connection = await message.member.voice.channel.join();
+    const stream = fs.createReadStream(`./src/saracin/${fileName}.pcm`);
+
+    const dispatcher = connection.play(stream, {
+      type: "converted"
+    });
+    dispatcher.setVolumeLogarithmic(10);
+    dispatcher.on("finish", () => {
+      message.member.voice.channel.leave();
+      return;
+    })
+    return;
+  }
+  message.channel.send("Comenzi disponibile pentru Saracin: multumesc / ms / pace / hello");
   return;
 }
 
