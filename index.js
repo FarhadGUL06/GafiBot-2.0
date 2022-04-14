@@ -177,7 +177,8 @@ client.on('message', async message => {
             memes.olaru(message);
             return;
         }
-        if (message.content.includes("saracin")||message.content.includes("ms")||message.content.includes("multumesc")) {
+        if (message.content.includes("saracin")||message.content.includes("ms")||message.content.includes("multumesc")
+			||message.content.includes("pace") ||message.content.includes("hello")) {
             memes.saracin(message);
             return;
         }
