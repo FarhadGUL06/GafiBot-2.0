@@ -52,7 +52,7 @@ module.exports = {
             prefix = objects.prefix;
             message.channel.send("HELP MEMES");
             message.channel.send(
-                `${prefix}amogos sau ${prefix}mogos - afiseaza un meme random\n${prefix}amogos sau ${prefix}mogos + numar - afiseaza meme-ul indicat\n${prefix}odo nb - noapte buna de la odo\n${prefix}odo check - verifica numarul de utilizatori si comenteaza pe situatia curenta\n${prefix}olaru ciuruit - Ii ciuruiesc!\n${prefix}saracin ms / multumesc (cu / fara prefix) - Multumesc frumos pentru raspuns!\n${prefix}saracin hello (cu / fara prefix) - Hello!\n${prefix}saracin pace (cu / fara prefix) - Nu va mai certati!`);
+                `${prefix}amogos sau ${prefix}mogos - afiseaza un meme random\n${prefix}amogos sau ${prefix}mogos + numar - afiseaza meme-ul indicat\n${prefix}odo nb - noapte buna de la odo\n${prefix}odo check - verifica numarul de utilizatori si comenteaza pe situatia curenta\n${prefix}olaru ciuruit - Ii ciuruiesc!\n${prefix}saracin ms / multumesc (cu / fara prefix) - Multumesc frumos pentru raspuns!\n${prefix}saracin hello (cu / fara prefix) - Hello!\n${prefix}saracin pace (cu / fara prefix) - Nu va mai certati!\n${prefix}dorinel sens (cu / fara prefix) - Dazitmeicsens`);
             return;
         }
         return;
