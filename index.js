@@ -182,6 +182,10 @@ client.on('message', async message => {
             memes.saracin(message);
             return;
         }
+        if (message.content.includes("dorinel")||message.content.includes("sens")) {
+            memes.dorinel(message);
+        return;
+        }    
         message.channel.send("Comanda nu este implementata!");
         return;
     }
