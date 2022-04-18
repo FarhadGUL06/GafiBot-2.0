@@ -5,6 +5,7 @@ const fs = require("fs");
 const objects = require(`../objects.js`);
 const client = objects.client;
 var prefix = objects.prefix;
+  
 
 var numberPhotos = 15;
 
