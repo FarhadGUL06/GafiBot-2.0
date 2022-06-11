@@ -6,6 +6,9 @@ const objects = require(`./commands/objects.js`);
 const client = objects.client;
 objects.prefix = prefix;
 
+// Other imports
+const cron = require('cron');
+
 // Central commands
 const help = require(`./commands/central/help.js`);
 const avatar = require(`./commands/central/avatar.js`);
@@ -13,6 +16,7 @@ const userinfo = require(`./commands/central/userinfo.js`);
 const serverinfo = require(`./commands/central/serverinfo.js`);
 const zicala = require(`./commands/central/zicala.js`);
 const memes = require(`./commands/central/memes.js`);
+const weather = require(`./commands/central/weather.js`);
 
 
 // Music commands
@@ -30,10 +34,50 @@ const { VoiceUtils } = require('discord-player');
 const { VoiceChannel } = require('discord.js');
 
 const queue = objects.queue;
+// Canalul de vreme
+const weatherChannelID = "969550818044948490"
 
 client.once('ready', () => {
-    client.user.setActivity('on 324CC')
+    client.user.setActivity('on 324CC');
     console.log('Ready!');
+    // Definim canalul de vreme
+    let weatherChannel =  client.channels.cache.get(weatherChannelID);
+    // Aici este mesajul automat de vreme de la ora 10
+    let weatherForecast10 = new cron.CronJob('00 00 07 * * *', () => {
+        weatherChannel.send(`<@&973939424410877972> \nBuna dimineata! Vremea de la ora 10:\n`);
+        weatherChannel.messages.fetch({ limit: 1 }).then(messages => {
+            let lastMessage = messages.first();
+            lastMessage.content = "!w Bucuresti";
+            weather.meteo(lastMessage);
+          })
+          .catch(console.error);
+        console.log ("Vremea de la ora 10!");
+    });
+    // Mesajul automat de la ora 14
+    let weatherForecast14 = new cron.CronJob('00 00 11 * * *', () => {
+        weatherChannel.send(`<@&973939424410877972> \nO zi minunata sa aveti! Vremea de la ora 14:\n`);
+        weatherChannel.messages.fetch({ limit: 1 }).then(messages => {
+            let lastMessage = messages.first();
+            lastMessage.content = "!w Bucuresti";
+            weather.meteo(lastMessage);
+          })
+          .catch(console.error);
+        console.log ("Vremea de la ora 14!");
+    });
+    // Mesajul automat de la ora 18
+    let weatherForecast18 = new cron.CronJob('00 00 15 * * *', () => {
+        weatherChannel.send(`<@&973939424410877972> \nVremea din aceasta seara:\n`);
+        weatherChannel.messages.fetch({ limit: 1 }).then(messages => {
+            let lastMessage = messages.first();
+            lastMessage.content = "!w Bucuresti";
+            weather.meteo(lastMessage);
+          })
+          .catch(console.error);
+        console.log ("Vremea de la ora 18!");
+    });
+    weatherForecast10.start()
+    weatherForecast14.start()
+    weatherForecast18.start()
 });
 client.once('reconnecting', () => {
     console.log('Reconnecting!');
@@ -160,31 +204,40 @@ client.on('message', async message => {
             music.stop(message, serverQueue);
             return;
         }
+        // COMANDA WEATHER
+        if (message.content.includes("weather")||message.content.includes("w")||message.content.includes("meteo")||message.content.includes("vreme")) {
+            weather.meteo(message);
+            return;
+        }  
         // COMENZI MEMES
-        if (message.content.includes("mogos")) {
+        if (message.content.includes("mogos ")) {
             memes.mogos(message);
             return;
         }
-        if (message.content.includes("odo")) {
+        if (message.content.includes("odo ")) {
             memes.odo(message);
             return;
         }
-        if (message.content.includes("rd")) {
+        if (message.content.includes("rd ")) {
             memes.rd(message);
             return;
         }
-        if (message.content.includes("olaru")) {
+        if (message.content.includes("olaru ")) {
             memes.olaru(message);
             return;
         }
-        if (message.content.includes("saracin")||message.content.includes("ms")||message.content.includes("multumesc")
+        if (message.content.includes("saracin ")||message.content.includes("ms")||message.content.includes("multumesc")
 			||message.content.includes("pace") ||message.content.includes("hello")) {
             memes.saracin(message);
             return;
         }
-        if (message.content.includes("dorinel")||message.content.includes("sens")) {
+        if (message.content.includes("dorinel ")||message.content.includes("sens")) {
             memes.dorinel(message);
-        return;
+            return;
+        }
+        if (message.content.includes("cringe")||message.content.includes("bobaru ")) {
+            memes.bobaru(message);
+            return;
         }    
         message.channel.send("Comanda nu este implementata!");
         return;

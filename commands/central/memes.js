@@ -172,6 +172,39 @@ async function dorinel(message) {
   return;
 }
 
+async function bobaru(message) {
+  const args = message.content.split(" ");
+  if (!args[1]) {
+    args[1]="random_text";
+  }
+  if ((args[1].includes("cringe"))||(args[0].includes(`${prefix}cringe`))) {
+    const voicechannel = message.member.voice.channel;
+    if (!voicechannel) return message.channel.send("Nu esti pe un canal de voice.");
+    if (client.voice.connections.size > 0) {
+      return message.channel.send("Sunt ocupat acum sa cant!");
+    }
+
+    let fileName = "cringe"; // Numele fisierului urmat sa se deschida
+
+    if (!fs.existsSync(`./src/bobaru/${fileName}.pcm`)) return message.channel.send("Nu a fost gasita sursa.");
+
+    const connection = await message.member.voice.channel.join();
+    const stream = fs.createReadStream(`./src/bobaru/${fileName}.pcm`);
+
+    const dispatcher = connection.play(stream, {
+      type: "converted"
+    });
+    dispatcher.setVolumeLogarithmic(10);
+    dispatcher.on("finish", () => {
+      message.member.voice.channel.leave();
+      return;
+    })
+    return;
+  }
+  message.channel.send("Comenzi disponibile pentru Bobaru: cringe");
+  return;
+}
+
 
 async function rd(message) {
   const args = message.content.split(" ");
@@ -270,4 +303,4 @@ async function odo(message) {
   return;
 }
 
-module.exports = { mogos, rd, saracin, dorinel, odo, olaru }
+module.exports = { mogos, rd, saracin, bobaru, dorinel, odo, olaru }
